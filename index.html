@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>I'm Sorry ❤️</title>
+    <!-- Load Tailwind CSS for clean responsive layout and utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Google Fonts for cute rounded typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffe4ec 0%, #ffc2d4 50%, #ffeef2 100%);
+            overflow: hidden;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(110vh) scale(0.6) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.75;
+            }
+            85% {
+                opacity: 0.75;
+            }
+            100% {
+                transform: translateY(-15vh) scale(1.15) rotate(25deg);
+                opacity: 0;
+            }
+        }
+
+        .floating-heart {
+            position: fixed;
+            bottom: -50px;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-8px) scale(1.03); }
+        }
+
+        .cute-bounce {
+            animation: gentleBounce 2.4s ease-in-out infinite;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0) rotate(-15deg);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.12) rotate(4deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .spawned-yes {
+            position: fixed;
+            z-index: 30;
+            animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+            transition: transform 0.15s ease, filter 0.15s ease;
+        }
+
+        .spawned-yes:active {
+            transform: scale(0.92);
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-8deg); }
+            75% { transform: rotate(8deg); }
+        }
+
+        .wiggle {
+            animation: wiggle 0.3s ease-in-out;
+        }
+
+        @keyframes burstParticle {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0.2) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        .burst-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 50;
+            animation: burstParticle 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .card-transition {
+            transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+    </style>
+</head>
+<body class="min-h-screen w-full flex items-center justify-center p-4 relative">
+
+    <!-- Background floating hearts container -->
+    <div id="hearts-container" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
+
+    <!-- Top-right gentle music toggle button -->
+    <button id="music-toggle" onclick="toggleMusic()" aria-label="Toggle Background Melody"
+        class="fixed top-4 right-4 z-40 bg-white/85 backdrop-blur-md text-pink-600 hover:bg-white px-4 py-2.5 rounded-full shadow-md border border-pink-200 flex items-center gap-2 text-sm font-bold transition transform active:scale-95">
+        <span id="music-icon">🎵</span>
+        <span id="music-label">Play Melody</span>
+    </button>
+
+    <!-- SCREEN 1: Apology Card -->
+    <main id="screen-1" class="card-transition relative z-20 w-full max-w-sm bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl border-2 border-pink-200/80 p-6 sm:p-8 text-center">
+        <div class="w-32 h-32 mx-auto mb-4 cute-bounce">
+            <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-md">
+                <circle cx="100" cy="105" r="80" fill="#ffe4ec" />
+                <circle cx="55" cy="52" r="22" fill="#fff0f3" stroke="#ff8fa3" stroke-width="5"/>
+                <circle cx="55" cy="52" r="11" fill="#ffb3c1"/>
+                <circle cx="145" cy="52" r="22" fill="#fff0f3" stroke="#ff8fa3" stroke-width="5"/>
+                <circle cx="145" cy="52" r="11" fill="#ffb3c1"/>
+                <ellipse cx="100" cy="105" rx="62" ry="54" fill="#ffffff" stroke="#ff8fa3" stroke-width="5"/>
+                <circle cx="76" cy="96" r="10" fill="#4a1525"/>
+                <circle cx="73" cy="92" r="3.5" fill="#ffffff"/>
+                <circle cx="80" cy="99" r="1.8" fill="#ffffff"/>
+                <circle cx="124" cy="96" r="10" fill="#4a1525"/>
+                <circle cx="121" cy="92" r="3.5" fill="#ffffff"/>
+                <circle cx="128" cy="99" r="1.8" fill="#ffffff"/>
+                <path d="M64 81 Q75 76 84 82" fill="none" stroke="#ff758f" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M136 81 Q125 76 116 82" fill="none" stroke="#ff758f" stroke-width="3.5" stroke-linecap="round"/>
+                <ellipse cx="62" cy="112" rx="10" ry="6" fill="#ffccd5" opacity="0.8"/>
+                <ellipse cx="138" cy="112" rx="10" ry="6" fill="#ffccd5" opacity="0.8"/>
+                <path d="M92 116 Q100 110 108 116" fill="none" stroke="#4a1525" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M100 165 C100 165 72 146 72 131 C72 122 80 117 88 117 C94 117 98 121 100 125 C102 121 106 117 112 117 C120 117 128 122 128 131 C128 146 100 165 100 165 Z" fill="#ff4d6d" stroke="#c9184a" stroke-width="3"/>
+                <ellipse cx="76" cy="142" rx="11" ry="8" fill="#ffffff" stroke="#ff8fa3" stroke-width="3.5"/>
+                <ellipse cx="124" cy="142" rx="11" ry="8" fill="#ffffff" stroke="#ff8fa3" stroke-width="3.5"/>
+            </svg>
+        </div>
+
+        <h1 class="text-2xl sm:text-3xl font-bold text-rose-600 leading-snug mb-2">
+            I'm sorry Fatima jii💋
+        </h1>
+        <p id="sub-hint" class="text-sm text-rose-400 font-medium mb-6 min-h-[20px]">
+            Please forgive me... 🥺
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4">
+            <button id="main-yes-btn" onclick="handleYesClick()"
+                class="bg-gradient-to-r from-emerald-400 to-green-500 hover:from-emerald-500 hover:to-green-600 text-white font-bold text-lg px-8 py-3.5 rounded-2xl shadow-lg shadow-green-200 transform transition active:scale-95">
+                Yes 💖
+            </button>
+
+            <button id="no-btn" onclick="handleNoClick()"
+                class="bg-gradient-to-r from-rose-400 to-red-500 hover:from-rose-500 hover:to-red-600 text-white font-bold text-lg px-8 py-3.5 rounded-2xl shadow-lg shadow-rose-200 transform transition active:scale-95">
+                No 🙈
+            </button>
+        </div>
+    </main>
+
+    <!-- SCREEN 2: Celebration Card -->
+    <section id="screen-2" class="card-transition hidden opacity-0 scale-90 relative z-20 w-full max-w-md bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border-2 border-pink-300 p-6 sm:p-8 text-center">
+        <div class="w-28 h-28 mx-auto mb-3 cute-bounce">
+            <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-md">
+                <circle cx="100" cy="100" r="82" fill="#ffe4ec" />
+                <path d="M100 162 C100 162 35 118 35 76 C35 53 53 38 74 38 C87 38 96 45 100 54 C104 45 113 38 126 38 C147 38 165 53 165 76 C165 118 100 162 100 162 Z" fill="#ff4d6d" stroke="#c9184a" stroke-width="5"/>
+                <path d="M68 85 Q78 73 88 85" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+                <path d="M112 85 Q122 73 132 85" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+                <path d="M84 102 Q100 120 116 102 Z" fill="#ffffff"/>
+                <circle cx="42" cy="40" r="5" fill="#ffb703"/>
+                <circle cx="160" cy="42" r="6" fill="#ffb703"/>
+                <circle cx="152" cy="145" r="4" fill="#ff758f"/>
+                <circle cx="48" cy="142" r="4" fill="#ff758f"/>
+            </svg>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-bold text-rose-600 leading-snug mb-4">
+            ik you're the best hehe😋
+        </h2>
+
+        <div class="bg-pink-50/90 border border-pink-200/80 rounded-2xl p-4 sm:p-5 mb-6 shadow-inner">
+            <p class="text-rose-700 font-semibold text-sm sm:text-base leading-relaxed">
+                thankyou for forgiving mee😋 I know I hurt u and I hate that I did. I messed up, and I'm not too proud to say it. U mean more to me than being right ever will... I'M SOOOOO SORRY KUCHU PUCHUUU 💋
+            </p>
+        </div>
+
+        <button onclick="resetExperience()"
+            class="bg-pink-100 hover:bg-pink-200 text-rose-600 font-bold text-sm px-6 py-2.5 rounded-full transition transform active:scale-95">
+            Replay ↺
+        </button>
+    </section>
+
+    <script>
+        const heartsContainer = document.getElementById('hearts-container');
+        const heartEmojis = ['❤️', '💖', '💗', '💓', '💕', '🌸'];
+
+        function createBackgroundHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 18 + 14) + 'px';
+            const duration = Math.random() * 5 + 6;
+            heart.style.animationDuration = duration + 's';
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createBackgroundHeart, 650);
+        for (let i = 0; i < 6; i++) {
+            setTimeout(createBackgroundHeart, i * 200);
+        }
+
+        let audioCtx = null;
+        let isPlayingMusic = false;
+        let melodyTimer = null;
+
+        const melodyNotes = [
+            523.25, 659.25, 783.99, 987.77,
+            1046.50, 987.77, 783.99, 659.25,
+            587.33, 698.46, 880.00, 783.99
+        ];
+        let noteStep = 0;
+
+        function playSoftNote(freq) {
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now);
+
+            gain.gain.setValueAtTime(0.001, now);
+            gain.gain.exponentialRampToValueAtTime(0.06, now + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.1);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            osc.stop(now + 1.15);
+        }
+
+        function toggleMusic() {
+            const icon = document.getElementById('music-icon');
+            const label = document.getElementById('music-label');
+
+            if (!isPlayingMusic) {
+                if (!audioCtx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    audioCtx = new AudioContext();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                isPlayingMusic = true;
+                icon.innerText = '🔊';
+                label.innerText = 'Music On';
+
+                playSoftNote(melodyNotes[noteStep % melodyNotes.length]);
+                noteStep++;
+                melodyTimer = setInterval(() => {
+                    playSoftNote(melodyNotes[noteStep % melodyNotes.length]);
+                    noteStep++;
+                }, 550);
+            } else {
+                isPlayingMusic = false;
+                clearInterval(melodyTimer);
+                icon.innerText = '🎵';
+                label.innerText = 'Play Melody';
+            }
+        }
+
+        function playCelebrationChime() {
+            try {
+                if (!audioCtx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    audioCtx = new AudioContext();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const chord = [523.25, 659.25, 783.99, 1046.50];
+                chord.forEach((freq, idx) => {
+                    setTimeout(() => playSoftNote(freq), idx * 90);
+                });
+            } catch (e) {}
+        }
+
+        let noClickCount = 0;
+
+        const pleadingHints = [
+            "Are you sure? Look at those puppy eyes! 🥺",
+            "Oops, wrong button! Try one of the green ones 💖",
+            "The 'No' button seems broken... click 'Yes'! 💕",
+            "I brought extra 'Yes' buttons just for you! 🌸",
+            "You can't escape my apology! Click 'Yes' ❤️"
+        ];
+
+        const yesLabels = [
+            "Yes! 💖",
+            "Yes 💕",
+            "Of course! ❤️",
+            "Yes, I forgive you 🌸",
+            "Yes!! 🥰",
+            "Click Yes 💗"
+        ];
+
+        const yesGradients = [
+            "from-emerald-400 to-green-500",
+            "from-pink-500 to-rose-500",
+            "from-fuchsia-500 to-pink-500",
+            "from-teal-400 to-emerald-500",
+            "from-rose-400 to-pink-600"
+        ];
+
+        function handleNoClick() {
+            noClickCount++;
+
+            const hintEl = document.getElementById('sub-hint');
+            hintEl.innerText = pleadingHints[(noClickCount - 1) % pleadingHints.length];
+
+            const noBtn = document.getElementById('no-btn');
+            noBtn.classList.remove('wiggle');
+            void noBtn.offsetWidth;
+            noBtn.classList.add('wiggle');
+
+            const newScale = Math.max(0.65, 1 - noClickCount * 0.05);
+            noBtn.style.transform = `scale(${newScale})`;
+
+            const mainYesBtn = document.getElementById('main-yes-btn');
+            const yesScale = Math.min(1.25, 1 + noClickCount * 0.04);
+            mainYesBtn.style.transform = `scale(${yesScale})`;
+
+            const spawnCount = Math.min(5, 2 + Math.floor(noClickCount / 2));
+            for (let i = 0; i < spawnCount; i++) {
+                spawnExtraYesButton();
+            }
+        }
+
+        function spawnExtraYesButton() {
+            const btn = document.createElement('button');
+            const label = yesLabels[Math.floor(Math.random() * yesLabels.length)];
+            const gradient = yesGradients[Math.floor(Math.random() * yesGradients.length)];
+
+            btn.innerText = label;
+            btn.className = `spawned-yes bg-gradient-to-r ${gradient} text-white font-bold text-base sm:text-lg px-5 py-3 rounded-2xl cursor-pointer`;
+
+            const marginX = 20;
+            const marginY = 65;
+            const maxW = Math.max(60, window.innerWidth - 150 - marginX);
+            const maxH = Math.max(80, window.innerHeight - 60 - marginY);
+
+            const randomX = Math.floor(Math.random() * maxW) + marginX;
+            const randomY = Math.floor(Math.random() * maxH) + marginY;
+
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.onclick = handleYesClick;
+
+            document.body.appendChild(btn);
+        }
+
+        function createCelebrationBurst() {
+            const burstEmojis = ['❤️', '💖', '✨', '🌸', '💕', '🎉', '🥰'];
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            for (let i = 0; i < 36; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'burst-heart';
+                particle.innerText = burstEmojis[Math.floor(Math.random() * burstEmojis.length)];
+                particle.style.left = centerX + 'px';
+                particle.style.top = centerY + 'px';
+                particle.style.fontSize = (Math.random() * 16 + 18) + 'px';
+
+                const angle = (Math.PI * 2 * i) / 36 + (Math.random() * 0.3);
+                const distance = Math.random() * 220 + 80;
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance + 'px';
+                const rot = (Math.random() * 360 - 180) + 'deg';
+
+                particle.style.setProperty('--tx', tx);
+                particle.style.setProperty('--ty', ty);
+                particle.style.setProperty('--rot', rot);
+
+                document.body.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 1250);
+            }
+        }
+
+        function handleYesClick() {
+            document.querySelectorAll('.spawned-yes').forEach(btn => btn.remove());
+            createCelebrationBurst();
+            playCelebrationChime();
+
+            const screen1 = document.getElementById('screen-1');
+            const screen2 = document.getElementById('screen-2');
+
+            screen1.classList.add('opacity-0', 'scale-90');
+            setTimeout(() => {
+                screen1.classList.add('hidden');
+                screen2.classList.remove('hidden');
+                void screen2.offsetWidth;
+                screen2.classList.remove('opacity-0', 'scale-90');
+            }, 350);
+        }
+
+        function resetExperience() {
+            noClickCount = 0;
+            document.getElementById('sub-hint').innerText = "Please forgive me... 🥺";
+            document.getElementById('no-btn').style.transform = "scale(1)";
+            document.getElementById('main-yes-btn').style.transform = "scale(1)";
+
+            const screen1 = document.getElementById('screen-1');
+            const screen2 = document.getElementById('screen-2');
+
+            screen2.classList.add('opacity-0', 'scale-90');
+            setTimeout(() => {
+                screen2.classList.add('hidden');
+                screen1.classList.remove('hidden');
+                void screen1.offsetWidth;
+                screen1.classList.remove('opacity-0', 'scale-90');
+            }, 350);
+        }
+    </script>
+</body>
+</html>
